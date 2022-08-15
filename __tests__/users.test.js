@@ -4,7 +4,6 @@ const request = require('supertest');
 const app = require('../lib/app');
 const UserService = require('../lib/services/UserService');
 
-//dummy user for testing purposes
 const testUser = {
   firstName: 'Test',
   lastName: 'User',
@@ -78,4 +77,5 @@ describe('yawp routes', () => {
     const res = await agent.get('/api/v1/users');
     expect(res.status).toBe(200);
   });
+
 });
