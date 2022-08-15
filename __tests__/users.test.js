@@ -2,6 +2,7 @@ const pool = require('../lib/utils/pool');
 const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
+const UserService = require('../lib/services/UserService');
 
 //dummy user for testing purposes
 const testUser = {
@@ -9,6 +10,18 @@ const testUser = {
   lastName: 'User',
   email: 'test@test.com',
   password: 'testing',
+};
+
+const registerAndLogin = async (userProps = {}) => {
+  const password = userProps.password ?? testUser.password;
+  
+  const agent = request.agent(app);
+  
+  const user = await UserService.create({ ...testUser, ...userProps });
+  
+  const { email } = user;
+  await agent.post('/api/v1/users/sessions').send({ email, password });
+  return [agent, user];
 };
 
 describe('yawp routes', () => {
@@ -55,4 +68,14 @@ describe('yawp routes', () => {
     });
   });
 
+  it('/users should return a 401 if not authenticated', async () => {
+    const res = await request(app).get('/api/v1/users');
+    expect(res.status).toEqual(401);
+  });
+
+  it('#GET protected /users should return list of users for auth user', async () => {
+    const [agent] = await registerAndLogin();
+    const res = await agent.get('/api/v1/users');
+    expect(res.status).toBe(200);
+  });
 });
