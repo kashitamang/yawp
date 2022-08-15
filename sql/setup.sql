@@ -3,7 +3,7 @@
 
 DROP TABLE IF EXISTS users;
 
-CREATE TABLE users (
+CREATE TABLE yawp_users (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   first_name TEXT NOT NULL,
   last_name TEXT NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE users (
   password_hash TEXT NOT NULL
 );
 
-INSERT INTO users(first_name, last_name, email, password_hash) VALUES 
+INSERT INTO yawp_users(first_name, last_name, email, password_hash) VALUES 
 ('test1', 'test1', 'test1@test.com', 'nottest1passwordhash'),
 ('test2', 'test2', 'test2@test.com', 'nottest2passwordhash'),
 ('test3', 'test3', 'test3@test.com', 'nottest3passwordhash');
