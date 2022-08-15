@@ -34,4 +34,13 @@ describe('yawp routes', () => {
       },
     });
   });
+
+  it('#POST signs in an existing user', async () => {
+    await request(app).post('/api/v1/users').send(testUser);
+    const res = await request(app)
+      .post('/api/v1/users/sessions')
+      .send({ email: 'test@test.com', password: 'testing' });
+    expect(res.status).toEqual(200);
+  });
+  
 });
