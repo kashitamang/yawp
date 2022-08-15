@@ -42,5 +42,5 @@ describe('yawp routes', () => {
       .send({ email: 'test@test.com', password: 'testing' });
     expect(res.status).toEqual(200);
   });
-  
+
 });
