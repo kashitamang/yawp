@@ -28,13 +28,20 @@ describe('yawp routes', () => {
     });
   });
 
-  it('#GET /restaurants:id should return a restaurant by its id for any user', async () => {
+  it('#GET /restaurants:id should return a restaurant with all its information', async () => {
     const res = await request(app).get('/api/v1/restaurants/1');
     expect(res.status).toEqual(200);
     expect(res.body).toEqual({
       id: expect.any(String),
       name: expect.any(String),
       type: expect.any(String),
+      reviews: [
+        {
+          id: expect.any(String),
+          stars: expect.any(String),
+          restaurant_id: expect.any(String),
+          user_id: expect.any(String),
+        }]
     });
   });
 
@@ -44,7 +51,9 @@ describe('yawp routes', () => {
     };
 
     const [agent] = await request(app).post('/api/v1/users').send(testUser);
-    const res = await agent.post('/api/v1/restaurants/1/reviews').send(newReview);
+    const res = await agent
+      .post('/api/v1/restaurants/1/reviews')
+      .send(newReview);
 
     expect(res.status).toBe(200);
     expect(res.body).toEqual({
