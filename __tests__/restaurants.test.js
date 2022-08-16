@@ -3,12 +3,12 @@ const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
 
-const testUser = {
-  firstName: 'Test',
-  lastName: 'User',
-  email: 'test@test.com',
-  password: 'testing',
-};
+// const testUser = {
+//   firstName: 'Test',
+//   lastName: 'User',
+//   email: 'test@test.com',
+//   password: 'testing',
+// };
 
 describe('yawp routes', () => {
   beforeEach(() => {
@@ -23,7 +23,7 @@ describe('yawp routes', () => {
     const res = await request(app).get('/api/v1/restaurants');
     expect(res.status).toEqual(200);
 
-    expect(res.body[0]).toBe({
+    expect(res.body[0]).toEqual({
       id: expect.any(String),
       name: expect.any(String),
       type: expect.any(String),
