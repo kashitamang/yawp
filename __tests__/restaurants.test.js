@@ -23,18 +23,19 @@ describe('yawp routes', () => {
     const res = await request(app).get('/api/v1/restaurants');
     expect(res.status).toEqual(200);
     expect(res.body[0]).toEqual({
+      id: expect.any(String),
       name: expect.any(String),
     });
   });
 
   it('#GET /restaurants:id should return a restaurant by its id for any user', async () => {
-    const res = await request(app).get('/api/v1/restaurants');
+    const res = await request(app).get('/api/v1/restaurants/1');
     expect(res.status).toEqual(200);
-    expect(res.body[0]).toEqual({
+    expect(res.body).toEqual({
       id: expect.any(String),
       name: expect.any(String),
       type: expect.any(String),
     });
   });
-  
+
 });
