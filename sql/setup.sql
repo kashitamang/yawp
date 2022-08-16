@@ -32,13 +32,14 @@ INSERT INTO yawp_restaurants(name, type) VALUES
 CREATE TABLE yawp_reviews (
   id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   stars TEXT NOT NULL,
+  details TEXT NOT NULL,
   restaurant_id BIGINT,
   user_id BIGINT,
   FOREIGN KEY (restaurant_id) REFERENCES yawp_restaurants(id),
   FOREIGN KEY (user_id) REFERENCES yawp_users(id)
   );
 
-INSERT INTO yawp_reviews (stars) VALUES
-  ('5'),
-  ('4'),
-  ('1');
+INSERT INTO yawp_reviews (stars, details, restaurant_id, user_id) VALUES
+  ('5', 'this place was great', '1', '1'),
+  ('4', 'its was fine', '2', '2'),
+  ('1', '10/10 do not go', '3', '3');

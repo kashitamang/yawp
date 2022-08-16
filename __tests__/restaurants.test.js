@@ -39,8 +39,7 @@ describe('yawp routes', () => {
         {
           id: expect.any(String),
           stars: expect.any(String),
-          restaurant_id: expect.any(String),
-          user_id: expect.any(String),
+          details: expect.any(String)
         }]
     });
   });
@@ -48,6 +47,7 @@ describe('yawp routes', () => {
   it('#POST should add a new review if the user is logged in', async () => {
     const newReview = {
       stars: '4',
+      details: 'not too shabby'
     };
 
     const [agent] = await request(app).post('/api/v1/users').send(testUser);
