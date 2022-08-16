@@ -69,10 +69,6 @@ describe('yawp routes', () => {
       firstName: 'admin',
       lastName: 'admin',
     });
-    // sign in the user
-    await agent
-      .post('/api/v1/users/sessions')
-      .send({ email: 'admin', password: '1234' });
 
     const res = await agent.get('/api/v1/users/');
     // console.log(res.body);
