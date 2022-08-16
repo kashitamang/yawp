@@ -3,12 +3,12 @@ const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
 
-// const testUser = {
-//   firstName: 'Test',
-//   lastName: 'User',
-//   email: 'test@test.com',
-//   password: 'testing',
-// };
+const testUser = {
+  firstName: 'Test',
+  lastName: 'User',
+  email: 'test@test.com',
+  password: 'testing',
+};
 
 describe('yawp routes', () => {
   beforeEach(() => {
@@ -38,4 +38,20 @@ describe('yawp routes', () => {
     });
   });
 
+  it('#POST should add a new review if the user is logged in', async () => {
+    const newReview = {
+      stars: '4',
+    };
+
+    const [agent] = await request(app).post('/api/v1/users').send(testUser);
+    const res = await agent.post('/api/v1/restaurants/1/reviews').send(newReview);
+
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({
+      id: expect.any(String),
+      ...newReview,
+      restaurant_id: expect.any(String),
+      user_id: expect.any(String),
+    });
+  });
 });
