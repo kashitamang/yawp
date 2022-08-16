@@ -79,5 +79,4 @@ describe('yawp routes', () => {
     expect(res.status).toEqual(200);
   });
 
-  
 });
