@@ -39,28 +39,33 @@ describe('yawp routes', () => {
         {
           id: expect.any(String),
           stars: expect.any(String),
-          details: expect.any(String)
-        }]
+          details: expect.any(String),
+        },
+      ],
     });
   });
 
   it('#POST should add a new review if the user is logged in', async () => {
     const newReview = {
       stars: '4',
-      details: 'not too shabby'
+      details: 'not too shabby',
     };
 
-    const [agent] = await request(app).post('/api/v1/users').send(testUser);
+    const agent = request.agent(app);
+    await agent.post('/api/v1/users').send(testUser);
+
     const res = await agent
       .post('/api/v1/restaurants/1/reviews')
       .send(newReview);
-
+    console.log('res.body', res.body);
     expect(res.status).toBe(200);
     expect(res.body).toEqual({
       id: expect.any(String),
-      ...newReview,
       restaurant_id: expect.any(String),
       user_id: expect.any(String),
+      ...newReview,
     });
+
+    console.log('res.status', res.status);
   });
 });
