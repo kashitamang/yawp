@@ -10,6 +10,13 @@ const testUser = {
   password: 'testing',
 };
 
+const existingUser = {
+  firstName: 'test1',
+  lastName: 'test1',
+  email: 'test1@test.com',
+  password: 'nottest1passwordhash',
+};
+
 describe('yawp routes', () => {
   beforeEach(() => {
     return setup(pool);
